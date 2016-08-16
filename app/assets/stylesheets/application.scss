@@ -1,0 +1,11 @@
+/*
+* Author: Douglas Tenório
+* Rails To Do List
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body { background: #eee;  }
+
+@import "pages/login";
+@import "pages/tasks";

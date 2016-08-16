@@ -1,0 +1,11 @@
+{
+  "name": "rails-to-do-list",
+  "version": "1.0.0",
+  "description": "Rails to do list",
+  "author": "Douglas Tenório",
+  "license": "MIT",
+  "dependencies" : {
+    "browserify": "~10.2.4",
+    "browserify-incremental": "^3.0.1"
+  }
+}
