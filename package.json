@@ -4,8 +4,10 @@
   "description": "Rails to do list",
   "author": "Douglas Tenório",
   "license": "MIT",
-  "dependencies" : {
+  "dependencies": {
+    "bootstrap": "^3.3.7",
     "browserify": "~10.2.4",
-    "browserify-incremental": "^3.0.1"
+    "browserify-incremental": "^3.0.1",
+    "jquery": "^3.1.0"
   }
 }

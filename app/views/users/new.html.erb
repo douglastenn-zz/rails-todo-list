@@ -1,12 +1,17 @@
 <section class="box-login">
-  <form class="form-signin">
+  <form class="form-signin" name=""method="POST" action="/users">
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+    
       <h2 class="form-signin-heading">Criar usuário</h2>
       <hr>
-      <input type="text" class="form-control" name="name" placeholder="Nome" required="" autofocus="" />
+      <input type="text" class="form-control" name="user[name]" placeholder="Nome" required="" autofocus="" />
 
-      <input type="email" class="form-control" name="email" placeholder="Email" required="" autofocus="" />
+      <input type="email" class="form-control" name="user[email]" placeholder="Email" required="" autofocus="" />
 
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+      <input type="password" class="form-control" name="user[password]" placeholder="Password" required=""/>
 
       <a href="/">Voltar para login</a>
       <hr>

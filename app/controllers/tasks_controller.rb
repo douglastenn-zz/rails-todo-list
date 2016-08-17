@@ -1,63 +1,53 @@
 class TasksController < ApplicationController
+  before_filter :authorize
   before_action :find_task, only: [:edit, :update, :show, :delete]
-  # Index action to render all tasks
+
+  # Index que renderiza todas as tasks.
   def index
-    logger.debug 'rendering index'
     @tasks = Task.all
   end
 
-  # New action for creating task
-  def new
-    @task = Task.new
-  end
-
-  # Create action saves the task into database
+  # Action para salvar tarefa no database
   def create
-    @task = Task.new
-    if @task.save(task_params)
-      flash[:notice] = "Successfully created task!"
+    @task = Task.new(task_params)
+    if @task.save
+      # Task criada com sucesso
       redirect_to task_path(@task)
     else
-      flash[:alert] = "Error creating new task!"
+      # Erro ao criar task
       render :new
     end
-  end
-
-  # Edit action retrives the task and renders the edit page
-  def edit
   end
 
   # Update action updates the task with the new information
   def update
     if @task.update_attributes(task_params)
-      flash[:notice] = "Successfully updated task!"
+      # Task atualizada com sucesso
       redirect_to task_path(@tasks)
     else
-      flash[:alert] = "Error updating task!"
+      # Erro ao atualizar task
       render :edit
     end
   end
 
-  # The show action renders the individual task after retrieving the the id
-  def show
-  end
-
-  # The destroy action removes the task permanently from the database
+  # Remove uma task do database
   def destroy
     if @task.destroy
-      flash[:notice] = "Successfully deleted task!"
+      # Task deletada com sucesso
       redirect_to tasks_path
     else
-      flash[:alert] = "Error updating task!"
+      # Remove ao deletar task
     end
   end
 
   private
 
+  # Definição e validação dos parametros
   def task_params
     params.require(:task).permit(:title, :body)
   end
 
+  # Busca por id da task
   def find_task
     @task = Task.find(params[:id])
   end

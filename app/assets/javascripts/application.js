@@ -1,1 +1,1 @@
-
+var $ = require('jquery');

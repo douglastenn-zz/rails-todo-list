@@ -11,32 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816040553) do
+ActiveRecord::Schema.define(version: 20160817043900) do
 
   create_table "events", force: :cascade do |t|
-    t.string   "type"
-    t.string   "json"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "type",       limit: 255
+    t.string   "json",       limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
     t.boolean  "status"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password"
-    t.string   "salt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.string   "password_digest", limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
 end

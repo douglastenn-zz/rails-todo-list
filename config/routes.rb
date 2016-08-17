@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
-  root :to => 'users#index'
+  root :to => 'users#index' #Rota padrão para login
 
-  # Criar todas as rotas necessárias para o CRUD de usuários
+  # Cria todas as rotas necessárias para o CRUD de usuários
   resources :users
 
-  # Criar todas as rotas necessárias para o CRUD de tasks
+  # Cria todas as rotas necessárias para o CRUD de tasks
   resources :tasks
+
+  # Cria rotas para recurso de sessões
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 
 end

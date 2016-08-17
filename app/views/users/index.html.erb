@@ -1,5 +1,9 @@
 <section class="box-login">
-  <form class="form-signin">
+  <form class="form-signin" method="POST" action="/login">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+
       <h2 class="form-signin-heading">Entrar</h2>
       <hr>
       <input type="email" class="form-control" name="email" placeholder="Email" required="" autofocus="" />
