@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_filter :authorize
   before_action :find_task, only: [:edit, :update, :show, :delete]
 
-  # Index que renderiza todas as tasks.
+  # Index que renderiza todas as tasks do usuário logado.
   def index
-    @tasks = Task.all
+    @tasks = Task.where(user_id: session[:user_id])
   end
 
   # Action para salvar tarefa no database
@@ -12,10 +12,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       # Task criada com sucesso
-      redirect_to task_path(@task)
+      render :json => @task
     else
       # Erro ao criar task
-      render :new
+       render :json => { :errors => @task.errors.full_messages }, :status => 422
     end
   end
 
@@ -23,10 +23,10 @@ class TasksController < ApplicationController
   def update
     if @task.update_attributes(task_params)
       # Task atualizada com sucesso
-      redirect_to task_path(@tasks)
+      render :json => @task
     else
       # Erro ao atualizar task
-      render :edit
+      render :json => { :errors => @task.errors.full_messages }, :status => 422
     end
   end
 
@@ -34,9 +34,9 @@ class TasksController < ApplicationController
   def destroy
     if @task.destroy
       # Task deletada com sucesso
-      redirect_to tasks_path
+      render :json => @task
     else
-      # Remove ao deletar task
+      render :json => { :errors => @task.errors.full_messages }, :status => 422
     end
   end
 
@@ -44,7 +44,12 @@ class TasksController < ApplicationController
 
   # Definição e validação dos parametros
   def task_params
-    params.require(:task).permit(:title, :body)
+    params.require(:task)
+          .permit(:title, :description)
+          .merge({
+            status: 0,
+            user_id: session[:user_id]
+          })
   end
 
   # Busca por id da task

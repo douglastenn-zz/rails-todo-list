@@ -1,16 +1,18 @@
 <section class="box-task">
-    <form class="form-signin">
-        <h2 class="form-signin-heading">Adicione uma tarefa:</h2>
+    <form class="form-task">
         <div class="container">
           <div class="row">
-            <div class="col-md-5">
-              <input type="text" class="form-control" name="title" placeholder="Título" required="" autofocus="" />
+            <div class="col-md-12">
+              <h3>Adicione uma tarefa:</h3>
             </div>
             <div class="col-md-5">
-              <input type="password" class="form-control" name="description" placeholder="Descrição" required=""/>
+              <input type="text" class="form-control" name="task[title]" placeholder="Título" required="" autofocus="" />
+            </div>
+            <div class="col-md-5">
+              <input type="text" class="form-control" name="task[description]" placeholder="Descrição" required=""/>
             </div>
             <div class="col-md-2">
-              <a class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
+              <a href="#" class="btn btn-primary btn-add" title="Adicionar task"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
             </div>
           </div>
         </div>
@@ -18,18 +20,22 @@
     </form>
 
    <ul class="container todolist">
-     <li class="row">
-       <div class="col-md-10">
-        <strong>Primeira task</strong>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi dolorum minima commodi, incidunt, perspiciatis blanditiis beatae doloribus qui aliquid harum alias illo rem praesentium consequuntur suscipit voluptatum quo tempore dolores.</p>
-       </div>
-
-       <div class="col-md-2">
-          <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a>
-          <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-       </div>
-
-      </li>
+     <h4>To Do:</h4>
+     <% @tasks.each do |tasks| %>
+       <li class="row">
+         <div class="col-md-10"
+           data-id="<%= tasks.id %>"
+           data-status="<%= tasks.status %>">
+          <strong><%= tasks.title %></strong>
+          <p><%= tasks.description %></p>
+         </div>
+         <div class="col-md-2">
+            <a href="#" class="btn btn-success btn-complete" title="Completar task"><i class="glyphicon glyphicon-ok"></i></a>
+            <a href="#" class="btn btn-info btn-update" title="Editar task"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" class="btn btn-danger btn-destroy" title="Remover task"><i class="glyphicon glyphicon-remove"></i></a>
+         </div>
+        </li>
+      <% end %>
    </ul>
 
 </section>

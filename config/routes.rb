@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   resources :users
 
   # Cria todas as rotas necessárias para o CRUD de tasks
-  resources :tasks
+  get '/tasks' => 'tasks#index'
+  post '/tasks/create' => 'tasks#create'
+  post '/tasks/update' => 'tasks#update'
+  post '/tasks/destroy' => 'tasks#destroy'
+  post '/tasks/complete' => 'tasks#complete'
 
   # Cria rotas para recurso de sessões
   post '/login' => 'sessions#create'
