@@ -19,19 +19,22 @@
         <hr>
     </form>
 
+  <div class="container">
+    <h4>To Do:</h4>
+  </div>
+
    <ul class="container todolist">
-     <h4>To Do:</h4>
      <% @tasks.each do |tasks| %>
-       <li class="row">
-         <div class="col-md-10"
-           data-id="<%= tasks.id %>"
-           data-status="<%= tasks.status %>">
+       <li class="row"
+       data-id="<%= tasks.id %>"
+       data-status="<%= tasks.status %>">
+         <div class="col-md-10">
           <strong><%= tasks.title %></strong>
           <p><%= tasks.description %></p>
          </div>
          <div class="col-md-2">
             <a href="#" class="btn btn-success btn-complete" title="Completar task"><i class="glyphicon glyphicon-ok"></i></a>
-            <a href="#" class="btn btn-info btn-update" title="Editar task"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" class="btn btn-info btn-update"><i class="glyphicon glyphicon-edit"></i></a>
             <a href="#" class="btn btn-danger btn-destroy" title="Remover task"><i class="glyphicon glyphicon-remove"></i></a>
          </div>
         </li>

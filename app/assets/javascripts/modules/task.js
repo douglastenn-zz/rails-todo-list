@@ -1,5 +1,10 @@
 'use strict';
 // '<div class="alert alert-danger"></div>';
+
+require('./helpers');
+var template = require('../templates/task-row');
+var templateError = require('../templates/box-error');
+
 var Task = {
   init: function() {
       console.log('init');
@@ -12,11 +17,21 @@ var Task = {
       });
 
       $('.btn-destroy').on('click', function() {
-        Task.destroy();
+        if(confirm("Deseja realmente remover essa task?")) {
+          var id = $(this).parent().parent().data('id');
+          Task.destroy(id);
+        }
       });
 
       $('.btn-complete').on('click', function() {
-        Task.complete();
+        if(confirm("Deseja realmente completar essa task?")) {
+          var id = $(this).parent().parent().data('id');
+          Task.complete(id);
+        }
+      });
+
+      $('.alert-danger span').on('click', function() {
+        $(this).parent().remove();
       });
   },
 
@@ -28,24 +43,65 @@ var Task = {
         data: $('.form-task').serialize(),
         dataType: "json",
         success: function(data) {
-          console.log(data);
+          $( template.render({
+      			id: data.id,
+      			title: data.title,
+            status: data.status,
+            description: data.description
+      		}) ).prependTo('.todolist');
+
+          $('.form-task').trigger('reset');
         },
         error: function(error) {
-          console.log(error);
+          $('.box-task .alert-danger').remove();
+          $( templateError.render({
+            message: 'Erro ao adicionar task!'
+          }) ).prependTo('.box-task');
         }
     });
+
   },
 
   update: function() {
     console.log('update');
   },
 
-  destroy: function() {
-    console.log('destroy');
+  destroy: function(id) {
+
+    $.ajax({
+        url: "/tasks/destroy",
+        type: "POST",
+        data: { id: id },
+        dataType: "json",
+        success: function() {
+            $('li[data-id="'+id+'"]').remove();
+        },
+        error: function(error) {
+          $('.box-task .alert-danger').remove();
+          $( templateError.render({
+            message: 'Erro ao adicionar task!'
+          }) ).prependTo('.box-task');
+        }
+    });
+
   },
 
-  complete: function() {
-    console.log('complete');
+  complete: function(id) {
+    $.ajax({
+        url: "/tasks/complete",
+        type: "POST",
+        data: { id: id },
+        dataType: "json",
+        success: function() {
+            $('li[data-id="'+id+'"]').remove();
+        },
+        error: function(error) {
+          $('.box-task .alert-danger').remove();
+          $( templateError.render({
+            message: 'Erro ao completar task!'
+          }) ).prependTo('.box-task');
+        }
+    });
   }
 
 };
